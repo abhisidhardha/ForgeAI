@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop, 'feat/**', 'fix/**', 'docs/**', 'chore/**']
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: forgeai_ci
+          POSTGRES_USER: forgeai_ci
+          POSTGRES_PASSWORD: ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U forgeai_ci -d forgeai_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: forgeai_ci
+      DB_USER: forgeai_ci
+      DB_PASSWORD: ci-only-password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - name: Check JavaScript syntax
+        run: git ls-files '*.js' | xargs -r -n 1 node --check
+      - name: Bootstrap empty database
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const { pool } = require('./config/db');
+          pool.query(fs.readFileSync('db/schema.sql', 'utf8'))
+            .then(() => console.log('V1 schema created successfully'))
+            .catch(error => { console.error(error.message); process.exitCode = 1; })
+            .finally(() => pool.end());
+          NODE
+
+  frontend:
+    name: Frontend checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+        env:
+          VITE_BASE_API_URL: /api

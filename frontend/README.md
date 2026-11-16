@@ -16,7 +16,7 @@ Run in this directory after `npm ci`:
 | `npm run dev` | Start Vite, normally on port 5173 |
 | `npm run lint` | Check JavaScript/JSX and React rules |
 | `npm run build` | Produce the frontend bundle in ignored `dist/` |
-| `npm run preview` | Preview the build; no development API proxy |
+| `npm run preview` | Preview the build locally; inherits the configured API proxy |
 
 Copy `.env.example` to `.env`. The default `VITE_BASE_API_URL=/api` uses the
 development proxy to the backend on port 5000. All `VITE_*` values are public.
