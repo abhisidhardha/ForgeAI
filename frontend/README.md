@@ -1,18 +1,25 @@
-# React + Vite
+# ForgeAI frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React/Vite browser application for ForgeAI's project and task management workflow.
 
-Currently, two official plugins are available:
+Start with the [root README](../README.md) and [local setup](../docs/getting-started.md).
+Feature implementation paths are in the [feature guide](../docs/features.md);
+routes, state, authentication, and theme boundaries are in
+[architecture](../docs/architecture.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Commands
 
-## React Compiler
+Run in this directory after `npm ci`:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start Vite, normally on port 5173 |
+| `npm run lint` | Check JavaScript/JSX and React rules |
+| `npm run build` | Produce the frontend bundle in ignored `dist/` |
+| `npm run preview` | Preview the build; no development API proxy |
 
-Note: This will impact Vite dev & build performances.
+Copy `.env.example` to `.env`. The default `VITE_BASE_API_URL=/api` uses the
+development proxy to the backend on port 5000. All `VITE_*` values are public.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+AI features and production hosting are not implemented. See the
+[roadmap](../docs/roadmap.md) and [known gaps](../docs/verification.md).

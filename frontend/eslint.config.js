@@ -18,4 +18,9 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // This module exports router configuration containing lazy page components.
+    files: ['src/routes/router.jsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])
