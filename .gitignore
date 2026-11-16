@@ -1,1 +1,36 @@
 node_modules/
+
+# Environment and local secrets
+.env
+.env.*
+*.env
+!.env.example
+
+# Logs and debug output
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build and tool output
+dist/
+coverage/
+.vite/
+.cache/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Local CLI state (may contain account or organization metadata)
+.sf/
+.sfdx/
+
+# Private keys and database exports
+*.pem
+*.key
+*.dump
+*.backup

@@ -1,0 +1,30 @@
+{
+  "name": "forgeai",
+  "version": "1.0.0",
+  "description": "ForgeAI V1 authentication, project, task, and dashboard API",
+  "homepage": "https://github.com/abhisidhardha/ForgeAI#readme",
+  "bugs": {
+    "url": "https://github.com/abhisidhardha/ForgeAI/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisidhardha/ForgeAI.git"
+  },
+  "license": "ISC",
+  "author": "Abhi Sidhardha",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.22.0"
+  }
+}

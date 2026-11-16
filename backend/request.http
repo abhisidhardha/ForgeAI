@@ -1,0 +1,53 @@
+# Use the VS Code REST Client extension. These are disposable example credentials.
+# Register first, log in, then copy the returned JWT into @token.
+@baseUrl = http://localhost:5000/api
+@token = paste-your-local-jwt-here
+@projectId = 1
+
+### Register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Example Developer",
+  "email": "developer@example.test",
+  "password": "Example-only-password-123!"
+}
+
+### Log in
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "developer@example.test",
+  "password": "Example-only-password-123!"
+}
+
+### List owned projects
+GET {{baseUrl}}/projects
+Authorization: Bearer {{token}}
+
+### Create a project
+POST {{baseUrl}}/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Onboarding project",
+  "description": "Verify the local project and task workflow."
+}
+
+### Create a task (use the project ID returned above)
+POST {{baseUrl}}/projects/{{projectId}}/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Read the contributor guide",
+  "description": "Follow the setup and verification instructions.",
+  "status": "pending"
+}
+
+### Dashboard
+GET {{baseUrl}}/dashboard
+Authorization: Bearer {{token}}
